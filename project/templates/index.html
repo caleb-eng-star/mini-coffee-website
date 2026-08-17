@@ -1,0 +1,338 @@
+<! DOCTYPE html >
+< html lang="en" >
+< head >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OhA&CaLEB's Coffee</title>
+    <style>         * {             margin: 0;             padding: 0;             box-sizing: border-box;         }
+        html {             scroll-behavior: smooth;         }
+        body {             font-family: Arial, sans-serif;             background: #120b08;             color: white;         }
+        nav {             position: fixed;             top: 0;             left: 0;             width: 100%;             padding: 20px 7%;             display: flex;             justify-content: space-between;             align-items: center;             background: rgba(18, 11, 8, 0.85);             backdrop-filter: blur(12px);             z-index: 1000;         }
+        .logo {             color: #e7a66a;             font-size: 25px;             font-weight: bold;         }
+        .logo span {             color: white;         }
+        .nav-links {             display: flex;             gap: 30px;             list-style: none;         }
+        .nav-links a {             color: white;             text-decoration: none;             transition: 0.3s;         }
+        .nav-links a:hover {             color: #e7a66a;         }
+        .cart-button {             background: #d99150;             border: none;             border-radius: 50%;             width: 45px;             height: 45px;             font-size: 20px;             cursor: pointer;         }
+        .hero {             min-height: 100vh;             display: flex;             align-items: center;             padding: 120px 7% 70px;             position: relative;             overflow: hidden;             background:
+                radial-gradient(circle at 80% 30%, rgba(211, 139, 72, 0.35), transparent 30%),                 radial-gradient(circle at 10% 80%, rgba(120, 55, 20, 0.4), transparent 30%),                 linear-gradient(135deg, #100806, #32170c, #100806);         }
+        .hero-content {             max-width: 650px;             z-index: 2;         }
+        .small-title {             color: #e7a66a;             letter-spacing: 3px;             margin-bottom: 20px;         }
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 6rem);             line-height: 1;             margin-bottom: 25px;         }
+        .hero h1 span {             color: #e4a064;         }
+        .hero p {             color: #cfc0b6;             line-height: 1.8;             margin-bottom: 30px;         }
+        .hero-buttons {             display: flex;             gap: 15px;             flex-wrap: wrap;         }
+        .btn {             padding: 14px 25px;             border-radius: 30px;             text-decoration: none;             font-weight: bold;             transition: 0.3s;         }
+        .primary {             background: #d99150;             color: #180d08;         }
+        .secondary {             border: 1px solid #806b5d;             color: white;         }
+        .btn:hover {             transform: translateY(-5px);         }
+        .coffee {             position: absolute;             right: 10%;             top: 50%;             transform: translateY(-50%);             width: 260px;             height: 180px;             background: linear-gradient(145deg, #f1c69a, #9d5b31);             border-radius: 20px 20px 80px 80px;             box-shadow: 0 30px 60px rgba(0,0,0,0.5);         }
+        .coffee::before {             content: "";             position: absolute;             width: 210px;             height: 45px;             top: -18px;             left: 25px;             background: #3b190b;             border-radius: 50%;         }
+        .coffee::after {             content: "";             position: absolute;             width: 60px;             height: 70px;             right: -50px;             top: 35px;             border: 18px solid #a86638;             border-left: none;             border-radius: 0 50px 50px 0;         }
+        section {             padding: 90px 7%;         }
+        .section-title {             text-align: center;             margin-bottom: 45px;         }
+        .section-title h2 {             font-size: 40px;             margin-top: 10px;         }
+        .section-title p {             color: #9f9289;             margin-top: 10px;         }
+        #shop {             background:                 radial-gradient(circle at center, rgba(126, 66, 31, 0.15), transparent 50%),                 #150c08;
+        }
+        .filters {             display: flex;             justify-content: center;             gap: 10px;
+            flex-wrap: wrap;             margin-bottom: 40px;         }
+        .filter {             padding: 10px 18px;             border-radius: 30px;             border: 1px solid #59483d;             background: transparent;             color: white;             cursor: pointer;         }
+        .filter:hover,         .filter.active {             background: #d99150;             color: #160c07;         }
+        .products {             display: grid;             grid-template-columns: repeat(4, 1fr);             gap: 20px;         }
+        .product {             background: #21120c;             border: 1px solid #3a261c;             border-radius: 20px;             overflow: hidden;             transition: 0.3s;         }
+        .product:hover {             transform: translateY(-8px);             border-color: #a66d3e;             box-shadow: 0 20px 40px rgba(0,0,0,0.3);         }
+        .product-image {             height: 200px;             display: flex;             align-items: center;             justify-content: center;             font-size: 70px;             background: radial-gradient(circle, #63371d, #21100a);         }
+        .product-info {             padding: 20px;         }
+        .product-info small {             color: #d99150;         }
+        .product-info h3 {             margin: 8px 0;         }
+        .product-info p {             color: #9e9087;             line-height: 1.5;             font-size: 14px;         }
+        .product-bottom {             margin-top: 20px;             display: flex;             align-items: center;             justify-content: space-between;         }
+        .price {             color: #f0bb82;             font-weight: bold;         }
+        .add {             width: 40px;             height: 40px;             border: none;             border-radius: 50%;             background: #d99150;             font-size: 22px;             cursor: pointer;             transition: 0.3s;         }
+        .add:hover {             transform: scale(1.1);         }
+        .features {             background: #0d0705;             display: grid;             grid-template-columns: repeat(3, 1fr);             gap: 20px;         }
+        .feature {             text-align: center;             padding: 35px;             background: #1b0f0a;             border-radius: 20px;             border: 1px solid #342117;
+        }
+        .feature-icon {             font-size: 45px;             margin-bottom: 15px;         }
+        .feature p {             color: #9c8f87;             margin-top: 10px;             line-height: 1.6;         }
+        .about {             text-align: center;             background: linear-gradient(rgba(22,12,8,0.9), rgba(22,12,8,0.95));         }
+        .about-content {             max-width: 750px;             margin: auto;         }
+        .about p {             color: #b4a69e;             line-height: 1.9;         }
+        .newsletter {             text-align: center;             background: linear-gradient(135deg, #6b3a1c, #29140b);         }
+        .newsletter p {             color: #d0beb1;             margin: 15px 0 25px;         }
+        .newsletter form {             max-width: 500px;             margin: auto;             display: flex;             background: white;             padding: 5px;             border-radius: 40px;         }
+        .newsletter input {             flex: 1;             border: none;             outline: none;             padding: 14px;             border-radius: 30px;         }
+        .newsletter button {             border: none;             background: #170c07;             color: white;             padding: 12px 20px;             border-radius: 30px;             cursor: pointer;         }
+        footer {             text-align: center;             padding: 40px;             background: #080403;             color: #81746b;         }
+        .cart {             position: fixed;             right: -400px;             top: 0;             width: 370px;             max-width: 90%;             height: 100vh;             background: #170d09;             z-index: 2000;             padding: 25px;             transition: 0.4s;             box-shadow: -20px 0 50px rgba(0,0,0,0.4);         }
+        .cart.open {             right: 0;         }
+        .cart-header {             display: flex;             justify-content: space-between;             align-items: center;             padding-bottom: 20px;             border-bottom: 1px solid #39251c;         }
+        .close {             background: none;             border: none;             color: white;             font-size: 25px;             cursor: pointer;         }
+        .cart-items {             height: 70%;             overflow-y: auto;             padding-top: 20px;         }
+        .cart-item {             display: flex;             justify-content: space-between;             align-items: center;             padding: 15px 0;             border-bottom: 1px solid #302017;         }
+        .cart-item button {             border: none;             background: #d99150;             border-radius: 50%;             width: 25px;             height: 25px;             cursor: pointer;         }
+        .cart-total {             display: flex;             justify-content: space-between;             margin-top: 20px;             font-size: 20px;         }
+        .checkout {             width: 100%;             margin-top: 20px;             padding: 15px;             border: none;             border-radius: 30px;             background: #d99150;             font-weight: bold;             cursor: pointer;         }
+        @media (max-width: 1000px) {             .products {                 grid-template-columns: repeat(2, 1fr);             }
+            .coffee {                 right: 3%;                 opacity: 0.3;             }
+        }
+        @media (max-width: 700px) {             nav {                 padding: 18px 5%;             }
+            .nav-links {                 display: none;             }
+            .hero {                 text-align: center;                 justify-content: center;             }
+            .hero-content {                 max-width: 100%;             }
+            .hero-buttons {                 justify-content: center;             }
+            .coffee {                 right: 50%;                 transform: translate(50%, -50%);                 opacity: 0.12;             }
+            .products {                 grid-template-columns: 1fr;             }
+            .features {                 grid-template-columns: 1fr;             }
+            section {                 padding: 70px 5%;             }
+        }
+        @media (max-width: 500px) {             .hero h1 {                 font-size: 3.2rem;             }
+            .section-title h2 {                 font-size: 30px;             }
+            .newsletter form {                 flex-direction: column;                 background: transparent;                 gap: 10px;             }
+            .newsletter input,             .newsletter button {                 width: 100%;
+            }
+        }
+    </style>
+</head >
+</body >
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">■ Agnes's<span>coffee</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <button class="cart-button" onclick="openCart()">■</button >
+    </nav>
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="small-title">W coffee INA MUG</div>
+            <h1>
+                Wake Up.<br>
+                <span>Drink Better.</span>
+            </h1>
+            <p>                 Discover delicious coffee, freshly roasted beans                 and premium brewing equipment made for people                 who truly love coffee.             </p>
+            <div class="hero-buttons">
+                <a href="#shop" class="btn primary">Shop Coffee</a>
+                <a href="#about" class="btn secondary">Our Story</a>
+            </div>
+        </div>
+        <div class="coffee"></div>
+    </section>
+    <!-- SHOP -->
+    <section id="shop">
+        <div class="section-title">
+            <small>OUR COLLECTION</small>
+            <h2>Find Your Perfect Brew</h2>
+            <p>Premium coffee for every mood.</p>
+        </div>
+        <div class="filters">
+            <button class="filter active" onclick="filterProducts('all', this)">All</button>
+            <button class="filter" onclick="filterProducts('coffee', this)">Coffee</button>
+            <button class="filter" onclick="filterProducts('beans', this)">Beans</button>
+            <button class="filter" onclick="filterProducts('equipment', this)">Equipment</button>
+        </div>
+        <div class="products">
+            <div class="product" data-category="coffee">
+                <div class="product-image">■</div >
+                <div class="product-info">
+                    <small>COFFEE</small>
+                    <h3>Classic Espresso</h3>
+                    <p>Rich and bold espresso with a smooth finish.</p>
+                    <div class="product-bottom">
+                        <span class="price">■4 ,500</span >
+                        <button class="add" onclick="addToCart('Classic Espresso', 4500)">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product" data-category="beans">
+                <div class="product-image">■</div >
+                <div class="product-info">
+                    <small>BEANS</small>
+                    <h3>Arabica Reserve</h3>
+                    <p>Smooth Arabica beans with chocolate notes.</p>
+                    <div class="product-bottom">
+                        <span class="price">■6 ,500</span >
+                        <button class="add" onclick="addToCart('Arabica Reserve', 6500)">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product" data-category="coffee">
+                <div class="product-image">■</div >
+                <div class="product-info">
+                    <small>COFFEE</small>
+                    <h3>Iced Latte</h3>                     <p>Cold espresso mixed with creamy milk.</p>
+                    <div class="product-bottom">
+                        <span class="price">■5 ,000</span >
+                        <button class="add" onclick="addToCart('Iced Latte', 5000)">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product" data-category="equipment">
+                <div class="product-image">■</div >
+                <div class="product-info">
+                    <small>EQUIPMENT</small>
+                    <h3>French Press</h3>
+                    <p>Make café-quality coffee at home.</p>
+                    <div class="product-bottom">
+                        <span class="price">■18 ,000</span >
+                        <button class="add" onclick="addToCart('French Press', 18000)">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product" data-category="beans">
+                <div class="product-image">■</div >
+                <div class="product-info">
+                    <small>BEANS</small>
+                    <h3>Dark Roast</h3>
+                    <p>Strong roasted coffee for serious coffee lovers.</p>
+                    <div class="product-bottom">
+                        <span class="price">■7 ,000</span >
+                        <button class="add" onclick="addToCart('Dark Roast', 7000)">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product" data-category="coffee">
+                <div class="product-image">■</div >
+                <div class="product-info">
+                    <small>COFFEE</small>
+                    <h3>Caramel Mocha</h3>
+                    <p>Espresso, chocolate and caramel together.</p>
+                    <div class="product-bottom">
+                        <span class="price">■5 ,500</span >
+                        <button class="add" onclick="addToCart('Caramel Mocha', 5500)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="feature">
+            <div class="feature-icon">■</div >
+            <h3>Fresh Beans</h3>
+            <p>Carefully selected beans for amazing flavor.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">■</div >
+            <h3>Perfect Roast</h3>
+            <p>Every batch is roasted with care.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">■</div >
+            <h3>Fast Delivery</h3>
+            <p>Get your favorite coffee delivered to you.</p>
+        </div>
+    </section>
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <div class="section-title">
+                <small>OUR STORY</small>
+                <h2>More Than Just Coffee</h2>
+            </div>
+            <p>                 Brew Haven was created for people who believe coffee                 should be more than just a drink. From the smell of                 freshly roasted beans to the first sip in the morning,                 we want every cup to feel special.             </p>
+        </div>
+    </section>
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+        <div class="section-title">
+            <h2>Stay In The Brew ■</h2>
+            <p>Subscribe for coffee tips and special offers.</p>
+        </div>
+        <form onsubmit="subscribe(event)">             <input type="email" id="email" placeholder="Enter your email" required>             <button>Subscribe</button>
+        </form>
+    </section>
+    <!-- FOOTER -->
+    <footer>
+        ■ BrewHaven
+        <br><br>         © 2026 Brew Haven Coffee
+    </footer>
+    <!-- SHOPPING CART -->
+    <div class="cart" id="cart">
+        <div class="cart-header">
+            <h2>Your Cart ■</h2>
+            <button class="close" onclick="closeCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p>Your cart is empty ■</p >
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <strong id="cartTotal">■0</strong >
+        </div>
+        <button class="checkout" onclick="checkout()">
+            Checkout
+        </button>
+    </div>
+    <!-- JAVASCRIPT -->     <script>
+        let cart = [];
+        function addToCart(name, price) {
+            let existingItem =                 cart.find(item => item.name === name);
+            if (existingItem) {                 existingItem.quantity++;             } else {                 cart.push({                     name: name,                     price: price,                     quantity: 1                 });             }
+            updateCart();
+            alert(name + " added to your cart ■");
+        }
+        function updateCart() {
+            const cartItems =                 document.getElementById("cartItems");
+            const cartTotal =                 document.getElementById("cartTotal");
+            cartItems.innerHTML = "";
+            if (cart.length === 0) {                 cartItems.innerHTML =                     "<p>Your cart is empty ■< /p>";
+            }
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                cartItems.innerHTML += `                     <div class="cart-item">
+                        <div>
+                            <strong>${item.name}</strong>
+                            <br>
+                            ■${item.price.toLocaleString()}
+                            <br>
+                            Quantity: ${item.quantity}
+                        </div>
+                        <button onclick="removeItem(${index})">
+                            ×
+                        </button>
+                    </div>
+                `;             });
+            cartTotal.innerText =                 "■" + total.toLocaleString();
+        }
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCart();         }
+        function openCart() {
+            document
+                .getElementById("cart")
+                .classList.add("open");         }
+        function closeCart() {
+            document                 .getElementById("cart")
+                .classList.remove("open");         }
+        function filterProducts(category, button) {
+            const products =                 document.querySelectorAll(".product");
+            const buttons =                 document.querySelectorAll(".filter");
+            buttons.forEach(btn => {                 btn.classList.remove("active");             });
+            button.classList.add("active");
+            products.forEach(product => {
+                if (                     category === "all" ||                     product.dataset.category === category                 ) {                     product.style.display = "block";                 } else {                     product.style.display = "none";                 }
+            });         }
+        function subscribe(event) {
+            event.preventDefault();
+            const email =                 document.getElementById("email").value;
+            alert(
+                "Thanks for subscribing! ■\n" + email
+            );
+            document.getElementById("email").value = "";         }
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Your cart is empty! ■");
+                return;             }
+            alert(                 "Checkout is ready to be connected " +
+                "to a payment system."
+            );         }
+        updateCart();     </script>
+</body >
+</html >
